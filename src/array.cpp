@@ -1,10 +1,14 @@
 /********************
- * File : array.cpp
+ * File : array.hpp
+ * Namespace : dsa
  * Created : Tue Jan 7 2025
- * Modified : Mon Jan 13 2025
+ * Modified : Wed Jan 15 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
- * Description : Array Datastructure template
+ *
+ * Array Datastructure template
+ * CAUTION : DON'T USE THIS CODE IN PRODUCTION 
+ * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM 
  ********************/
 #include <stddef.h>
 #include <typeinfo>
@@ -39,7 +43,7 @@ T Array<T>::get(size_t index) const
     if (index <= this->_length - 1)
         return this->arr[index];
     else
-        throw std::out_of_range("(dsa::Array<T>::get(size_t index)) : wrong index [" + std::to_string(index) + "] ] | current length is [" + std::to_string(this->_length) + "]\n");
+        throw std::out_of_range("wrong index [" + std::to_string(index) + "]  | current length is [" + std::to_string(this->_length) + "]\n");
 }
 
 template <typename T>
@@ -73,9 +77,20 @@ template <typename T>
 void Array<T>::insert(size_t index, T element)
 {
     if (index > _length - 1)
-        throw std::out_of_range("(dsa::Array<T>::insert(size_t index)) : wrong index [" + std::to_string(index) + "] ] | current length is [" + std::to_string(this->_length) + "]\n");
+        throw std::out_of_range("wrong index [" + std::to_string(index) + "] | current length is [" + std::to_string(this->_length) + "]\n");
     if (this->_length < this->_size)
     {
+        for (int i = this->_length - 1; i >= 0; i--)
+        {
+            std::cout << i << std::endl;
+            if(i != index)
+                this->arr[i+1] =this->arr[i];
+            else{
+                this->arr[i+1]= this->arr[i]; 
+                this->arr[i] = element; 
+                break; 
+            } 
+        }
     }
 }
 
@@ -91,7 +106,7 @@ void Array<T>::remove(size_t index)
     }
     else
     {
-        throw std::out_of_range("(dsa::Array<T>::remove(size_t index)) : wrong index [" + std::to_string(index) + "] ] | current length is [" + std::to_string(this->_length) + "]\n");
+        throw std::out_of_range("wrong index [" + std::to_string(index) + "] | current length is [" + std::to_string(this->_length) + "]\n");
     }
 }
 
@@ -101,9 +116,10 @@ void Array<T>::replace(size_t index, T element)
     if (index <= this->_length - 1)
         this->arr[index] = element;
     else
-        throw std::out_of_range("(dsa::Array<T>::replace(size_t index, T element)) : wrong index [" + std::to_string(index) + "] ] | current length is [" + std::to_string(this->_length) + "]\n");
+        throw std::out_of_range("wrong index [" + std::to_string(index) + "]  | current length is [" + std::to_string(this->_length) + "]\n");
 }
 
+/* this version of reverse() is not efficient */
 // template <typename T>
 // void Array<T>::reverse()
 // {
@@ -125,7 +141,7 @@ void Array<T>::reverse()
 {
     int i = 0, j = this->_length - 1;
     for (i; i < j;)
-        swap(this->arr[i++], this->arr[j--]);
+        std::swap(this->arr[i++], this->arr[j--]);
 }
 
 template <typename T>
@@ -170,29 +186,23 @@ template <typename T>
 void Array<T>::rightShift()
 {
     if (this->_length > 0)
-        this->rightRotate(); 
-        this->remove(0);
+        this->rightRotate();
+    this->remove(0);
 }
 
 template <typename T>
 void Array<T>::rightRotate()
 {
-    if(this->_length > 0){
-        T lastElement = this->arr[this->_length-1]; 
-        for (int i = this->_length -1; i > 0; i--)
+    if (this->_length > 0)
+    {
+        T lastElement = this->arr[this->_length - 1];
+        for (int i = this->_length - 1; i > 0; i--)
         {
-            this->arr[i] = this->arr[i-1];
+            this->arr[i] = this->arr[i - 1];
         }
-        this->arr[0]= lastElement; 
+        this->arr[0] = lastElement;
     }
 }
-
-// template<typename T>
-// Array<T>& Array<T>::getUnion(){}
-// template<typename T>
-// Array<T>& Array<T>::getIntersection(){}
-// template<typename T>
-// Array<T>& Array<T>::getDifference(){}
 
 template <typename T>
 bool Array<T>::operator==(Array<T> &array) const
@@ -246,13 +256,4 @@ Array<T> Array<T>::operator+(Array<T> &array)
         newArray.add(array.get(i));
     }
     return newArray;
-}
-
-/* Private methods  */
-template <typename T>
-void Array<T>::swap(T &a, T &b)
-{
-    T temp = a;
-    a = b;
-    b = temp;
 }
