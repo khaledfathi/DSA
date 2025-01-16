@@ -10,17 +10,15 @@
 #include <iostream>
 #include "./helper.hpp"
 #include "./inc/array.hpp"
+#include "./inc/list.hpp"
 
 using namespace dsa;
 
 int main()
 {
-    Array<int> arr1 = Array<int> (10);  
-    Array<int> arr2 = Array<int> (10); 
 
-
-    Array<int> arr3 = arr1 + arr2; 
-    arr1.insert(2,100);
-    printArray(arr1); 
-    return 0;
+    List<int> x = {0,1,2,3,4};
+    x.remove(4); 
+    x.display(); 
+    return 0; 
 }
