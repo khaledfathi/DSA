@@ -1,5 +1,5 @@
 g++ --std=c++17 \
 main.cpp \
-./src/exceptions/list_empty_exception.cpp \
+./src/exceptions/dsa_exceptions.cpp \
 
 ./a.out

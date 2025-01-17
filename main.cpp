@@ -1,12 +1,14 @@
 /********************
  * File : main.cpp
+ * Namespace : 
  * Created : Tue Jan 7 2025
- * Modified : Wed Jan 15 2025
+ * Modified : Fri Jan 17 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
  * 
- * main entry for testing data structure 
+ * main entry for testing data structure
 ********************/
+
 #include <iostream>
 #include "./helper.hpp"
 #include "./inc/array.hpp"
@@ -16,9 +18,12 @@ using namespace dsa;
 
 int main()
 {
+    Array<int , 5> x = {1,2,3}; 
+    x.insert(3, 10); 
+    printArray(x); 
 
-    List<int> x = {0,1,2,3,4};
-    x.remove(4); 
-    x.display(); 
-    return 0; 
+
+
+
+    return 0;
 }
