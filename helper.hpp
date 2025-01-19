@@ -14,12 +14,14 @@
 
 #include <iostream>
 #include "inc/array.hpp"
+#include "inc/list.hpp"
 
 template <typename T>
 void print(T value, std::string prefixStr = "")
 {
     std::cout << prefixStr << " " << value << std::endl;
 }
+
 
 template <typename T , int Size>
 void printArray(Array<T,Size> &array)
@@ -28,6 +30,16 @@ void printArray(Array<T,Size> &array)
     std::cout << "[ ";
     for (int i = 0; i < len; i++)
         std::cout << array.get(i) << (i + 1 < len ? " , " : "");
+    std::cout << " ]\n";
+}
+
+template <typename T>
+void printList(List<T> &list)
+{
+    int len = list.length();
+    std::cout << "[ ";
+    for (int i = 0; i < len; i++)
+        std::cout << list[i] << (i + 1 < len ? " , " : "");
     std::cout << " ]\n";
 }
 #endif // HELPER_HPP

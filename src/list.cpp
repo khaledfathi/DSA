@@ -2,7 +2,7 @@
  * File : list.cpp
  * Namespace : 
  * Created : Wed Jan 15 2025
- * Modified : Fri Jan 17 2025
+ * Modified : Sun Jan 19 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
  * 
@@ -23,12 +23,11 @@ template <typename T>
 List<T>::List(const List<T> &list)
 {
     clear();
-    Node *head = (Node *)list.head(); 
+    Node *head = (Node *)list.head();
     while (head != NULL)
     {
-        pushBack(head->value); 
-        head = head->next; 
-        size++;
+        pushBack(head->value);
+        head = head->next;
     }
 }
 
@@ -36,46 +35,7 @@ template <typename T>
 List<T>::List(const std::initializer_list<T> list)
 {
     for (auto i : list)
-    {
         pushBack(i);
-    }
-}
-
-template <typename T>
-List<T> & List<T>::operator=(const List<T> &list){
-    clear();
-    Node *head = (Node *)list.head(); 
-    while (head != NULL)
-    {
-        pushBack(head->value); 
-        head = head->next; 
-        size++; 
-    }
-    return *this;
-}
-
-template <typename T>
-T &List<T>::operator[](int index) const
-{
-    return get(index);
-}
-
-template <typename T>
-List<T> List<T>::operator+(const List<T> &list) const
-{
-    List<T> newList = List<T>();
-    //this list 
-    Node* head = head_ptr; 
-    while(head != NULL){
-        newList.pushBack(head->value); 
-        head = head->next; 
-    }
-    head = (Node*)list.head(); 
-    while(head != NULL){
-        newList.pushBack(head->value); 
-        head = head->next; 
-    }
-    return newList;
 }
 
 template <typename T>
@@ -85,9 +45,7 @@ T &List<T>::get(int index) const
         throw std::out_of_range("Wrong List index [" + std::to_string(index) + "] | List length = " + std::to_string(size));
     Node *cursor = head_ptr;
     for (int i = 0; i < index; i++)
-    {
         cursor = cursor->next;
-    }
     return cursor->value;
 }
 
@@ -122,9 +80,7 @@ void List<T>::pushFront(T value)
     Node *node = new Node;
     node->value = value;
     if (size == 0)
-    {
         head_ptr = tail_ptr = node;
-    }
     else
     {
         node->next = head_ptr;
@@ -157,14 +113,11 @@ void List<T>::remove(int index)
     Node *previous = NULL;
     Node *removed = head_ptr;
     for (int i = 0; i < index; i++)
-    {
         if (previous == NULL)
             previous = head_ptr;
         else
             previous = previous->next;
-    }
-    if (previous == NULL)
-    { // no previous so delete first element in the list
+    if (previous == NULL)  // no previous so delete first element in the list
         if (removed->next == NULL)
         {
             delete removed;
@@ -175,21 +128,23 @@ void List<T>::remove(int index)
             head_ptr = removed->next;
             delete removed;
         }
-    }
     else
-    {
-        Node *removed = previous->next;
+        removed = previous->next;
         if (removed != NULL)
+        {
             previous->next = removed->next;
+            delete removed;
+        }
         else
             delete removed;
-    }
+    size--;
 }
 template <typename T>
 void List<T>::clear()
 {
     Node *cursor = head_ptr;
-    if(cursor == NULL) return ; 
+    if (cursor == NULL)
+        return;
     Node *next = cursor->next;
     while (cursor != NULL)
     {
@@ -220,27 +175,11 @@ void List<T>::insert(int index, T element)
 
     Node *previous = NULL; // used as a cursor
     for (int i = 0; i <= index - 1; i++)
-    {
         if (previous == NULL)
             previous = head_ptr;
         else
             previous = previous->next;
-    }
     insertNewNode(previous, element);
-}
-
-template <typename T>
-void List<T>::display() const
-{
-    Node *head = head_ptr;
-    std::cout << "[ ";
-    while (head != NULL)
-    {
-        std::cout << head->value;
-        head = head->next;
-        std::cout << (head != NULL ? " , " : "");
-    }
-    std::cout << " ]\n";
 }
 
 template <typename T>
@@ -259,7 +198,7 @@ int List<T>::find(T element) const
 }
 
 template <typename T>
-const void *List<T>::head() const
+void *const List<T>::head() const
 {
     return (Node *)head_ptr;
 }
@@ -272,11 +211,69 @@ List<T> &List<T>::merge(const List<T> &list)
     return *this;
 }
 
-// template<typename T>
-// void List<T>::reverse(){
+template <typename T>
+void List<T>::reverse()
+{
+    Node* ptr1 = head_ptr;
+    Node* ptr2 = NULL;
+    Node* ptr3 = NULL; 
 
-// }
+    while (ptr1 != NULL){
+        ptr3 = ptr2; 
+        ptr2 = ptr1; 
+        ptr1 = ptr1->next; 
+        ptr2->next = ptr3; 
+    }
+    std::swap(head_ptr, tail_ptr); 
+}
 
+template <typename T>
+List<T> &List<T>::operator=(const std::initializer_list<T> list)
+{
+    clear();
+    for (auto i : list)
+        pushBack(i);
+    return *this;
+}
+
+template <typename T>
+List<T> &List<T>::operator=(const List<T> &list)
+{
+    clear();
+    Node *head = (Node *)list.head();
+    while (head != NULL)
+    {
+        pushBack(head->value);
+        head = head->next;
+    }
+    return *this;
+}
+
+template <typename T>
+T &List<T>::operator[](int index) const
+{
+    return get(index);
+}
+
+template <typename T>
+List<T> List<T>::operator+(const List<T> &list) const
+{
+    List<T> newList = List<T>();
+    // this list
+    Node *head = head_ptr;
+    while (head != NULL)
+    {
+        newList.pushBack(head->value);
+        head = head->next;
+    }
+    head = (Node *)list.head();
+    while (head != NULL)
+    {
+        newList.pushBack(head->value);
+        head = head->next;
+    }
+    return newList;
+}
 /* PRIVATE METHODS */
 template <typename T>
 void List<T>::insertNewNode(Node *previous, T element)
@@ -285,4 +282,5 @@ void List<T>::insertNewNode(Node *previous, T element)
     inserted->value = element;
     inserted->next = previous->next;
     previous->next = inserted;
+    size++;
 }

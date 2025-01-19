@@ -2,7 +2,7 @@
  * File : main.cpp
  * Namespace : 
  * Created : Tue Jan 7 2025
- * Modified : Fri Jan 17 2025
+ * Modified : Sun Jan 19 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
  * 
@@ -16,14 +16,11 @@
 
 using namespace dsa;
 
+
 int main()
 {
-    Array<int , 5> x = {1,2,3}; 
-    x.insert(3, 10); 
-    printArray(x); 
-
-
-
-
+    List<int> x = {0,1,2,3,4}; 
+    List<int> n = {00,11,22,33,44}; 
+    printList(x); 
     return 0;
 }
