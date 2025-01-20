@@ -67,6 +67,11 @@ namespace dsa
          */
         List(const std::initializer_list<T> list);               // initilizer i.e List<int> list =  { 1 ,4, 6, 7 }
         /**
+         * @brief Destroy the List object
+         * 
+         */
+        ~List(); 
+        /**
          * @brief get element by index
          * 
          * @param index index of element 

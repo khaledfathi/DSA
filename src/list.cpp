@@ -39,6 +39,11 @@ List<T>::List(const std::initializer_list<T> list)
 }
 
 template <typename T>
+List<T>::~List(){
+    clear(); 
+}
+
+template <typename T>
 T &List<T>::get(int index) const
 {
     if (index > size - 1)
