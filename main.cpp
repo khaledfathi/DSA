@@ -20,7 +20,10 @@ using namespace dsa;
 
 int main()
 {
-    DList<int> x ; 
-    
+    DList<int> x ;
+    x.pushBack(11); 
+    x.pushBack(12); 
+    x.pushBack(13); 
+    std::cout << x[1] << std::endl; 
     return 0;
 }

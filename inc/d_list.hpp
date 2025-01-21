@@ -21,6 +21,7 @@ class DList
 private:
     class Node
     {
+    public:
         T value;
         Node *previous = NULL;
         Node *next = NULL;
