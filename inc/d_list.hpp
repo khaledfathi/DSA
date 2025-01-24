@@ -32,7 +32,7 @@ private:
 
 public:
     DList();
-    DList(const List<T> &list); // copy constructor
+    DList(const DList<T> &list); // copy constructor
     DList(const std::initializer_list<T> list); // initilizer i.e List<int> list =  { 1 ,4, 6, 7 }
     ~DList();
     T &get(int index) const;
@@ -49,8 +49,8 @@ public:
     int find(T element) const;
     DList<T> &merge(const DList<T> &list);
     void reverse();
-    List<T> &operator=(const std::initializer_list<T> list); // same as inittializer constuctor
-    DList<T> &operator=(const List<T> &list);
+    DList<T> &operator=(const std::initializer_list<T> list); // same as inittializer constuctor
+    DList<T> &operator=(const DList<T> &list);
     T &operator[](int index) const;
     DList<T> operator+(const DList<T> &list) const;
 private:

@@ -14,16 +14,16 @@
 #include "./inc/array.hpp"
 #include "./inc/list.hpp"
 #include "./inc/d_list.hpp"
-
 using namespace dsa;
 
 
 int main()
 {
-    DList<int> x ;
-    x.pushBack(11); 
-    x.pushBack(12); 
-    x.pushBack(13); 
-    std::cout << x[1] << std::endl; 
+    DList<int> x = {1,2,3,4} ;
+    DList<int> y = {6,77,44,55} ;
+
+    x = y; 
+    for (int i = 0; i < x.length(); i++) std::cout<< x[i] << std::endl; 
+    
     return 0;
 }

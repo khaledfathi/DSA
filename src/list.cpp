@@ -34,6 +34,7 @@ List<T>::List(const List<T> &list)
 template <typename T>
 List<T>::List(const std::initializer_list<T> list)
 {
+    clear(); 
     for (auto i : list)
         pushBack(i);
 }
