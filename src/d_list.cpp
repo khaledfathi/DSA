@@ -10,6 +10,7 @@
  * CAUTION : DON'T USE THIS CODE IN PRODUCTION
  * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM
  ********************/
+#include <string>
 #include "../inc/d_list.hpp"
 #include "../inc/exceptions/dsa_exceptions.hpp"
 
@@ -159,7 +160,32 @@ void DList<T>::clear(){
     size = 0;
     head_ptr = tail_ptr = NULL;
 }
-// void insert(int index, T element);
+template<typename T>
+void DList<T>::insert(int index, T element)
+{
+    if (index > size)
+        throw std::out_of_range("Wrong List index [" + std::to_string(index) + "] | List length = " + std::to_string(size));
+
+    if (index == 0)
+    { // if index target list head
+        pushFront(element);
+        return;
+    }
+    else if (index == size)
+    { // if index target list tail
+        pushBack(element);
+        return;
+    }
+
+    Node *previous = NULL; // used as a cursor
+    for (int i = 0; i <= index - 1; i++)
+        if (previous == NULL)
+            previous = head_ptr;
+        else
+            previous = previous->next;
+    insertNewNode(previous, element);
+}
+
 template <typename T>
 int DList<T>::find(T element) const
 {
@@ -176,8 +202,10 @@ int DList<T>::find(T element) const
 }
 template<typename T>
 DList<T> & DList<T>::merge(const DList<T> &list){
-    size += list.length();
-    tail_ptr->next = (Node *)list.head();
+    for (int i = 0; i < list.length(); i++)
+    {
+        pushBack(list[i]); 
+    }
     return *this;
 }
 
@@ -207,5 +235,40 @@ template<typename T>
 T & DList<T>::operator[](int index) const{
     return get(index);
 }
-// DList<T> operator+(const DList<T> &list) const;
-// void insertNewNode(Node *previous, T element);
+template <typename T>
+DList<T> DList<T>::operator+(const DList<T> &list) const
+{
+    DList<T> newList = DList<T>();
+    // this list
+    Node *head = head_ptr;
+    while (head != NULL)
+    {
+        newList.pushBack(head->value);
+        head = head->next;
+    }
+    head = (Node *)list.head();
+    while (head != NULL)
+    {
+        newList.pushBack(head->value);
+        head = head->next;
+    }
+    return newList;
+}
+template<typename T>
+DList<T> & DList<T>::operator+=(const DList<T> &list)
+{
+    return merge(list); 
+}
+
+/* PRIVATE METHODS */
+template <typename T>
+void DList<T>::insertNewNode(Node *previous, T element)
+{
+    Node *inserted = new Node;
+    inserted->value = element;
+    inserted->next = previous->next;
+    inserted->previous = previous; 
+    inserted->next->previous = inserted; 
+    previous->next = inserted;
+    size++;
+}

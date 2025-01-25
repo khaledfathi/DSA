@@ -210,11 +210,13 @@ void *const List<T>::head() const
 }
 
 template <typename T>
-List<T> &List<T>::merge(const List<T> &list)
+List<T> &List<T>::merge(const List<T> &list) 
 {
-    size += list.length();
-    tail_ptr->next = (Node *)list.head();
-    return *this;
+    for (int i = 0; i < list.length(); i++)
+    {
+        pushBack(list[i]); 
+    }
+    return *this; 
 }
 
 template <typename T>
@@ -280,6 +282,13 @@ List<T> List<T>::operator+(const List<T> &list) const
     }
     return newList;
 }
+
+template<typename T>
+List<T>& List<T>::operator+=(const List<T> &list) 
+{
+    return merge(list); 
+}
+
 /* PRIVATE METHODS */
 template <typename T>
 void List<T>::insertNewNode(Node *previous, T element)

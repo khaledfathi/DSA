@@ -53,6 +53,7 @@ public:
     DList<T> &operator=(const DList<T> &list);
     T &operator[](int index) const;
     DList<T> operator+(const DList<T> &list) const;
+    DList<T> &operator+=(const DList<T> &list);
 private:
     void insertNewNode(Node *previous, T element);
 };

@@ -20,9 +20,9 @@ using namespace dsa;
 int main()
 {
     DList<int> x = {1,2,3,4} ;
-    DList<int> y = {6,77,44,55} ;
+    DList<int> y = {1,2,3,4} ;
 
-    x = y; 
+    x+=y; 
     for (int i = 0; i < x.length(); i++) std::cout<< x[i] << std::endl; 
     
     return 0;
