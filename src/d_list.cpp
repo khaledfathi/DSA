@@ -1,110 +1,116 @@
 /********************
- * File : list.cpp
- * Namespace : 
+ * File : d_list.cpp
+ * Namespace :
  * Created : Wed Jan 15 2025
- * Modified : Sun Jan 19 2025
+ * Modified : Tue Jan 21 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
- * 
- * List (Linked List) Datastructure template
+ *
+ * DList (Double Linked List) Datastructure template
  * CAUTION : DON'T USE THIS CODE IN PRODUCTION
  * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM
-********************/
+ ********************/
 #include <string>
-#include "../inc/list.hpp"
+#include "../inc/d_list.hpp"
 #include "../inc/exceptions/dsa_exceptions.hpp"
 
-using namespace dsa;
+template<typename T>
+DList<T>::DList(){ }
 
-template <typename T>
-List<T>::List() {}
-
-template <typename T>
-List<T>::List(const List<T> &list)
+template<typename T>
+DList<T>::DList(const DList<T> &list)
 {
-    clear();
-    Node *head = (Node *)list.head();
-    while (head != NULL)
+    clear(); 
+    for (int i = 0; i < list.length(); i++)
     {
-        pushBack(head->value);
-        head = head->next;
+        pushBack(list[i]);
     }
 }
-
 template <typename T>
-List<T>::List(const std::initializer_list<T> list)
+DList<T>::DList(const std::initializer_list<T> list)
 {
     clear(); 
     for (auto i : list)
         pushBack(i);
-}
 
-template <typename T>
-List<T>::~List(){
-    clear(); 
 }
-
+template<typename T>
+DList<T>::~DList(){
+    clear();
+}
+template<typename T>
+T & DList<T>::get(int index) const{
+    if(index > size -1)
+        throw std::out_of_range("index ["+std::to_string(index)+"] out of range | list size is "+std::to_string(size) );
+    Node *head = NULL; 
+    for (int i = 0; i <= index; i++)
+    {
+        if(head == NULL) 
+            head = head_ptr;
+        else 
+            head = head->next;
+    }
+    return head->value; 
+}
 template <typename T>
-T &List<T>::get(int index) const
+void *const DList<T>::head() const
 {
-    if (index > size - 1)
-        throw std::out_of_range("Wrong List index [" + std::to_string(index) + "] | List length = " + std::to_string(size));
-    Node *cursor = head_ptr;
-    for (int i = 0; i < index; i++)
-        cursor = cursor->next;
-    return cursor->value;
+    return head_ptr;
 }
-
 template <typename T>
-int List<T>::length() const
+int DList<T>::length() const
 {
     return size;
 }
-
 template <typename T>
-bool List<T>::isEmpty() const
+bool DList<T>::isEmpty() const
 {
     return size == 0;
 }
 
-template <typename T>
-void List<T>::pushBack(T value)
-{
-    Node *node = new Node;
-    node->value = value;
-    if (size == 0)
+template<typename T>
+void DList<T>::pushBack(T value){
+    Node *node = new Node; 
+    if(node == NULL)
+        throw NotEnoughMemoryException("insufficient memory"); 
+    node->value = value; 
+    if(tail_ptr == NULL){
         head_ptr = tail_ptr = node;
-    else
-        tail_ptr->next = node;
-    tail_ptr = node;
+    }else{
+        node->previous = tail_ptr; 
+        tail_ptr->next = node; 
+        tail_ptr = node; 
+    }
     size++;
 }
-
 template <typename T>
-void List<T>::pushFront(T value)
+void DList<T>::pushFront(T value)
 {
     Node *node = new Node;
+    if (node == NULL)
+        throw NotEnoughMemoryException("insufficient memory");
     node->value = value;
-    if (size == 0)
+    if (head_ptr == NULL)
+    {
         head_ptr = tail_ptr = node;
+    }
     else
     {
         node->next = head_ptr;
+        head_ptr->previous = node;
         head_ptr = node;
     }
     size++;
 }
-
 template <typename T>
-T List<T>::first() const
+T DList<T>::first() const
 {
     if (head_ptr == NULL)
         throw ListEmptyException("List is Empty !");
     return head_ptr->value;
 }
-
 template <typename T>
-T List<T>::last() const
+T DList<T>::last() const
 {
     if (head_ptr == NULL)
         throw ListEmptyException("List is Empty !");
@@ -112,42 +118,35 @@ T List<T>::last() const
 }
 
 template <typename T>
-void List<T>::remove(int index)
+void DList<T>::remove(int index)
 {
     if (size == 0 || index > size - 1)
         throw std::out_of_range("Wrong List index [" + std::to_string(index) + "] | List length = " + std::to_string(size));
-    Node *previous = NULL;
-    Node *removed = head_ptr;
-    for (int i = 0; i < index; i++)
-        if (previous == NULL)
-            previous = head_ptr;
+    Node *removed = NULL, *previous, *next;
+    for (int i = 0; i <= index; i++) // find the node to be removed 
+        if (removed == NULL)
+            removed = head_ptr;
         else
-            previous = previous->next;
-    if (previous == NULL)  // no previous so delete first element in the list
-        if (removed->next == NULL)
-        {
-            delete removed;
-            head_ptr = NULL;
-        }
-        else
-        {
-            head_ptr = removed->next;
-            delete removed;
-        }
-    else
-        removed = previous->next;
-        if (removed != NULL)
-        {
-            previous->next = removed->next;
-            delete removed;
-        }
-        else
-            delete removed;
+            removed = removed->next;
+    
+    previous = removed->previous; 
+    next = removed->next;
+
+    if(removed == head_ptr){
+        next->previous = NULL; 
+        head_ptr = next;  
+    }else if(removed == tail_ptr){
+        previous->next = NULL;
+        tail_ptr = previous; 
+    }else {
+        previous->next = next;
+        next->previous = previous;
+    }
+    delete (removed);
     size--;
 }
-template <typename T>
-void List<T>::clear()
-{
+template<typename T>
+void DList<T>::clear(){
     Node *cursor = head_ptr;
     if (cursor == NULL)
         return;
@@ -161,9 +160,8 @@ void List<T>::clear()
     size = 0;
     head_ptr = tail_ptr = NULL;
 }
-
-template <typename T>
-void List<T>::insert(int index, T element)
+template<typename T>
+void DList<T>::insert(int index, T element)
 {
     if (index > size)
         throw std::out_of_range("Wrong List index [" + std::to_string(index) + "] | List length = " + std::to_string(size));
@@ -189,7 +187,7 @@ void List<T>::insert(int index, T element)
 }
 
 template <typename T>
-int List<T>::find(T element) const
+int DList<T>::find(T element) const
 {
     Node *cursor = head_ptr;
     int index = -1;
@@ -202,71 +200,45 @@ int List<T>::find(T element) const
     }
     return -1;
 }
-
-template <typename T>
-void *const List<T>::head() const
-{
-    return (Node *)head_ptr;
-}
-
-template <typename T>
-List<T> &List<T>::merge(const List<T> &list) 
-{
+template<typename T>
+DList<T> & DList<T>::merge(const DList<T> &list){
     for (int i = 0; i < list.length(); i++)
     {
         pushBack(list[i]); 
     }
-    return *this; 
+    return *this;
 }
 
-template <typename T>
-void List<T>::reverse()
-{
-    Node* ptr1 = head_ptr;
-    Node* ptr2 = NULL;
-    Node* ptr3 = NULL; 
+// void reverse();
 
-    while (ptr1 != NULL){
-        ptr3 = ptr2; 
-        ptr2 = ptr1; 
-        ptr1 = ptr1->next; 
-        ptr2->next = ptr3; 
-    }
-    std::swap(head_ptr, tail_ptr); 
-}
-
-template <typename T>
-List<T> &List<T>::operator=(const std::initializer_list<T> list)
+template<typename T>
+DList<T>& DList<T>::operator=(const std::initializer_list<T> list)
 {
-    clear();
+    clear(); 
     for (auto i : list)
         pushBack(i);
     return *this;
 }
 
-template <typename T>
-List<T> &List<T>::operator=(const List<T> &list)
+template<typename T>
+DList<T> & DList<T>::operator=(const DList<T> &list)
 {
-    clear();
-    Node *head = (Node *)list.head();
-    while (head != NULL)
+    clear(); 
+    for (int i = 0; i < list.length(); i++)
     {
-        pushBack(head->value);
-        head = head->next;
+        pushBack(list[i]);
     }
     return *this;
 }
 
-template <typename T>
-T &List<T>::operator[](int index) const
-{
+template<typename T>
+T & DList<T>::operator[](int index) const{
     return get(index);
 }
-
 template <typename T>
-List<T> List<T>::operator+(const List<T> &list) const
+DList<T> DList<T>::operator+(const DList<T> &list) const
 {
-    List<T> newList = List<T>();
+    DList<T> newList = DList<T>();
     // this list
     Node *head = head_ptr;
     while (head != NULL)
@@ -282,20 +254,21 @@ List<T> List<T>::operator+(const List<T> &list) const
     }
     return newList;
 }
-
 template<typename T>
-List<T>& List<T>::operator+=(const List<T> &list) 
+DList<T> & DList<T>::operator+=(const DList<T> &list)
 {
     return merge(list); 
 }
 
 /* PRIVATE METHODS */
 template <typename T>
-void List<T>::insertNewNode(Node *previous, T element)
+void DList<T>::insertNewNode(Node *previous, T element)
 {
     Node *inserted = new Node;
     inserted->value = element;
     inserted->next = previous->next;
+    inserted->previous = previous; 
+    inserted->next->previous = inserted; 
     previous->next = inserted;
     size++;
 }

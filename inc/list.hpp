@@ -187,6 +187,13 @@ namespace dsa
          * @return List<T> 
          */
         List<T> operator+(const List<T> &list) const;
+        /**
+         * @brief merge a list to this list
+         * 
+         * @param list list to be copied for merging
+         * @return List<T> 
+         */
+        List<T>& operator+=(const List<T> &list);
     private:
         /**
          * @brief helper function for inserting Node to this list

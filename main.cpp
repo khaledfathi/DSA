@@ -13,14 +13,17 @@
 #include "./helper.hpp"
 #include "./inc/array.hpp"
 #include "./inc/list.hpp"
-
+#include "./inc/d_list.hpp"
 using namespace dsa;
 
 
 int main()
 {
-    List<int> x = {0,1,2,3,4}; 
-    List<int> n = {00,11,22,33,44}; 
-    printList(x); 
+    DList<int> x = {1,2,3,4} ;
+    DList<int> y = {1,2,3,4} ;
+
+    x+=y; 
+    for (int i = 0; i < x.length(); i++) std::cout<< x[i] << std::endl; 
+    
     return 0;
 }
