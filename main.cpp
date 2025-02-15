@@ -10,7 +10,6 @@
 ********************/
 
 #include <iostream>
-#include "./helper.hpp"
 #include "./inc/array.hpp"
 #include "./inc/list.hpp"
 #include "./inc/d_list.hpp"
