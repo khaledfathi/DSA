@@ -1,15 +1,16 @@
 /********************
  * File : d_list.cpp
- * Namespace :
+ * Namespace : 
  * Created : Wed Jan 15 2025
- * Modified : Tue Jan 21 2025
+ * Modified : Sat Feb 15 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
- *
- * DList (Double Linked List) Datastructure template
+ * 
+ * List ( Double Linked List) Datastructure template
  * CAUTION : DON'T USE THIS CODE IN PRODUCTION
  * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM
- ********************/
+********************/
+
 #include <string>
 #include "../inc/d_list.hpp"
 #include "../inc/exceptions/dsa_exceptions.hpp"
@@ -209,7 +210,19 @@ DList<T> & DList<T>::merge(const DList<T> &list){
     return *this;
 }
 
-// void reverse();
+template <typename T>
+void DList<T>::reverse(){
+    Node *cursor = head_ptr; 
+    Node *temp; 
+    while (cursor != NULL)
+    {
+        temp = cursor->next; 
+        cursor->next = cursor->previous; 
+        cursor->previous = temp; 
+        cursor = cursor->previous;
+        if(cursor != NULL && cursor->next == NULL) head_ptr = cursor; 
+    }
+}
 
 template<typename T>
 DList<T>& DList<T>::operator=(const std::initializer_list<T> list)
@@ -258,6 +271,19 @@ template<typename T>
 DList<T> & DList<T>::operator+=(const DList<T> &list)
 {
     return merge(list); 
+}
+
+template<typename T>
+bool DList<T>::operator==(const DList<T> &list){
+    if(this->size != list.length()) return  false ;
+    Node *left_head = head_ptr; 
+    Node *right_head = (Node*) list.head(); 
+    for (int i=0 ; i < list.length(); i++){
+        if (left_head->value != right_head->value) return false; 
+        left_head = left_head->next ; 
+        right_head = right_head->next;
+    }
+    return true ; 
 }
 
 /* PRIVATE METHODS */
