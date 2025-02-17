@@ -1,15 +1,15 @@
 /********************
  * File : array.hpp
- * Namespace :
+ * Namespace : dsa
  * Created : Tue Jan 7 2025
- * Modified : Fri Jan 17 2025
+ * Modified : Mon Feb 17 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
- *
+ * 
  * Array Datastructure template
  * CAUTION : DON'T USE THIS CODE IN PRODUCTION
  * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM
- ********************/
+********************/
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 

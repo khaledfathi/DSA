@@ -1,30 +1,31 @@
 /********************
  * File : main.cpp
  * Namespace : 
- * Created : Tue Jan 7 2025
- * Modified : Sat Feb 15 2025
+ * Created : Mon Feb 17 2025
+ * Modified : Mon Feb 17 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
  * 
  * main entry for testing data structure
 ********************/
 
+
 #include <iostream>
 #include "./inc/array.hpp"
 #include "./inc/list.hpp"
 #include "./inc/d_list.hpp"
+#include "./inc/stack_array.hpp"
+
 using namespace dsa;
 
 
 int main()
 {
-    DList<int> x = {1,2,3,4} ;
-
-    x.reverse(); 
-    for (int i = 0; i < x.length(); i++)
-    {
-        std::cout << x[i] << std::endl; 
-    }
-    
-    return 0;
+    auto st = StackArray<int, 5>();  
+    // st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+    st.push(5);
+    std::cout << st.peek(0) << std::endl; 
 }

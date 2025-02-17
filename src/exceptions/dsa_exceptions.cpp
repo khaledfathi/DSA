@@ -1,15 +1,15 @@
 /********************
  * File : dsa_exceptions.hpp
- * Namespace : 
+ * Namespace :
  * Created : Tue Jan 7 2025
- * Modified : Fri Jan 17 2025
+ * Modified : Mon Feb 17 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
- * 
- * Array Datastructure exception 
+ *
+ * Array Datastructure exception
  * CAUTION : DON'T USE THIS CODE IN PRODUCTION
  * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM
-********************/
+ ********************/
 #include "../../inc/exceptions/dsa_exceptions.hpp"
 #include <string.h>
 
@@ -29,9 +29,8 @@ ListEmptyException::ListEmptyException(const char* msg){
 }
 
 const char* ListEmptyException::what () const noexcept {
-    return  this->msg; 
+    return  this->msg;
 }
-
 /* ##################################### */
 
 NotEnoughMemoryException::NotEnoughMemoryException(const char* msg){
@@ -41,3 +40,44 @@ NotEnoughMemoryException::NotEnoughMemoryException(const char* msg){
 const char* NotEnoughMemoryException::what () const noexcept {
     return  this->msg;  
 }
+/* ##################################### */
+
+StackOverFlowException::StackOverFlowException(const char *msg)
+{
+    this->msg = msg;
+}
+const char *StackOverFlowException::what() const noexcept
+{
+    return this->msg; 
+}
+/* ##################################### */
+
+StackUnderFlowException::StackUnderFlowException(const char *msg)
+{
+    this->msg = msg;
+}
+const char *StackUnderFlowException::what() const noexcept
+{
+    return this->msg; 
+}
+/* ##################################### */
+
+StackEmptyException::StackEmptyException(const char *msg)
+{
+    this->msg = msg;
+}
+const char *StackEmptyException::what() const noexcept
+{
+    return this->msg; 
+}
+/* ##################################### */
+
+InvalidStackPositionException::InvalidStackPositionException(const char *msg)
+{
+    this->msg = msg;
+}
+const char *InvalidStackPositionException::what() const noexcept
+{
+    return this->msg; 
+}
+/* ##################################### */
