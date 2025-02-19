@@ -58,5 +58,8 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "thread": "cpp"
-    }
+    },
+    "java.project.sourcePaths": [
+        "inc"
+    ]
 }
