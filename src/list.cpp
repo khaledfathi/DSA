@@ -71,6 +71,8 @@ template <typename T>
 void List<T>::pushBack(T value)
 {
     Node *node = new Node;
+    if (node == NULL)
+        throw NotEnoughMemoryException("Insufficient memory");
     node->value = value;
     if (size == 0)
         head_ptr = tail_ptr = node;
@@ -124,6 +126,7 @@ void List<T>::remove(int index)
         else
             previous = previous->next;
     if (previous == NULL)  // no previous so delete first element in the list
+    {
         if (removed->next == NULL)
         {
             delete removed;
@@ -134,7 +137,10 @@ void List<T>::remove(int index)
             head_ptr = removed->next;
             delete removed;
         }
+    }
     else
+    {
+
         removed = previous->next;
         if (removed != NULL)
         {
@@ -143,6 +149,7 @@ void List<T>::remove(int index)
         }
         else
             delete removed;
+    }
     size--;
 }
 template <typename T>
