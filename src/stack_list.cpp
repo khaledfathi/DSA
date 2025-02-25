@@ -47,4 +47,18 @@ T StackList<T>::stackTop()
 template <typename T>
 T StackList<T>::peek(int position)
 {
+    if (position <= arr.length())
+    {
+        T target = NULL;
+        if(position == 1) return arr.first();
+        for (int i = 0; i < position-1 ; i++)
+        {
+            target = arr[i+1];
+        }
+        return target;
+    }
+    else
+    {
+        throw InvalidStackPositionException("Peek Position is not exist");
+    }
 }

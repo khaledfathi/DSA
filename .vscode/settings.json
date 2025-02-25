@@ -57,7 +57,13 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "any": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "optional": "cpp",
+        "iomanip": "cpp",
+        "variant": "cpp"
     },
     "java.project.sourcePaths": [
         "inc"
