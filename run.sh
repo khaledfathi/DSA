@@ -1,5 +1,24 @@
-g++ --std=c++17 \
-main.cpp \
-./src/exceptions/dsa_exceptions.cpp \
+#!/bin/bash
+if [ ! -d build ]; then
+    mkdir build
+fi 
+cd build
+cmake ..
+make
+cd ..
+echo 
+./build/run_dsa
 
-./a.out
+
+
+
+
+
+
+
+
+
+
+
+
+

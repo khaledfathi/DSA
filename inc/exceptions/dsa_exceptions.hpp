@@ -1,8 +1,8 @@
 /********************
  * File : dsa_exceptions.hpp
- * Namespace : 
+ * Namespace : dsa
  * Created : Tue Jan 7 2025
- * Modified : Fri Jan 17 2025
+ * Modified : Mon Feb 17 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
  * 
@@ -48,8 +48,55 @@ namespace dsa{
     public : 
         explicit NotEnoughMemoryException(const char* msg);
         const char* what () const noexcept override;
-    }; 
+    };
+    /**
+     * @brief StackOverFlowException
+     * 
+     */
+    class StackOverFlowException : public std::exception
+    {
+    private:
+        const char *msg;
+    public:
+        explicit StackOverFlowException(const char* msg); 
+        const char *what() const noexcept override ;
+    };
+    /**
+     * @brief StackUnderFlowException
+     * 
+     */
+    class StackUnderFlowException: public std::exception
+    {
+    private:
+        const char *msg;
+    public:
+        explicit StackUnderFlowException(const char* msg); 
+        const char *what() const noexcept override ;
+    };
+    /**
+     * @brief StackEmptyException
+     * 
+     */
+    class StackEmptyException: public std::exception
+    {
+    private:
+        const char *msg;
+    public:
+        explicit StackEmptyException(const char* msg); 
+        const char *what() const noexcept override ;
+    };
+    /**
+     * @brief InvalidStackPositionException
+     * 
+     */
+    class InvalidStackPositionException: public std::exception
+    {
+    private:
+        const char *msg;
+    public:
+        explicit InvalidStackPositionException(const char* msg); 
+        const char *what() const noexcept override ;
+    };
 }
-
 #endif // LIST_EMPTY_HPP
 

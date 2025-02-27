@@ -1,3 +1,4 @@
 .vscode
 helper.hpp
 a.out
+build/
