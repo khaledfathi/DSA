@@ -30,6 +30,14 @@ int main()
     x.enqueue(3); 
     x.enqueue(4); 
     x.enqueue(5); 
+    x.dequeue(); 
+    x.dequeue(); 
+    x.dequeue(); 
+    x.dequeue(); 
+    x.enqueue(52); 
+    x.enqueue(53); 
+    x.enqueue(53); 
+    x.enqueue(54); 
     std::cout << "first = " << x.first() << std::endl; 
     std::cout << "last = " << x.last() << std::endl; 
     std::cout << "is empty = " << x.isEmpty() << std::endl; 

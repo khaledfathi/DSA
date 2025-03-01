@@ -22,6 +22,7 @@ namespace dsa
     private:
         int front = -1;
         int rear = -1;
+        const int size = Size+1; 
         T *arr ; 
     public:
         QueueArray (); 
@@ -33,7 +34,6 @@ namespace dsa
         T first(); 
         T last(); 
     };
-
 } // namespace dsa
 
 #include "../src/queue_array.cpp"

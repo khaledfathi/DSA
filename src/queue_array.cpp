@@ -7,6 +7,7 @@
  * Email : dev@khaledfathi.com
  *
  * Queue (Queue Array) Datastructure template
+ * Using circular queue method
  * CAUTION : DON'T USE THIS CODE IN PRODUCTION
  * THIS CODE IS JUST FOR LEARNING AND PRACTICE DATASTRUCTURE AND ALGORITHM
  ********************/
@@ -28,18 +29,24 @@ QueueArray<T,Size>::~QueueArray (){
 
 template <typename T , int Size> 
 void QueueArray<T,Size>::enqueue (T value){
-    if(!isFull())
-        arr[++rear] = value; 
-    else 
-        throw QueueFullException("trying to add elemnt to queue while it is empty "); 
+    if (!isFull())
+    {
+        rear = (rear + 1) % size;
+        arr[rear] = value;
+    }
+    else
+        throw QueueFullException("trying to enqueue to queue while it is full ");
 }
 
 template <typename T , int Size> 
 T QueueArray<T,Size>::dequeue (){
-    if(!isEmpty())
-        return arr[++front]; 
+    if (!isEmpty())
+    {
+        front = (front + 1) % size;
+        return arr[front];
+    }
     else
-        throw QueueEmptyException("trying to dequeue elemnt while Queue is full "); 
+        throw QueueEmptyException("trying to dequeue elemnt while Queue is empty ");
 }
 
 template <typename T , int Size> 
@@ -49,12 +56,12 @@ bool QueueArray<T,Size>::isEmpty(){
 
 template <typename T , int Size> 
 bool QueueArray<T,Size>::isFull(){
-    return rear == sizeof-1; 
+    return ((rear + 1) % size == front);
 }
 
 template <typename T , int Size> 
 T QueueArray<T,Size>::first(){
-    return arr[front+1];
+    return arr[(front+1)%Size];
 }
 
 template <typename T , int Size> 
