@@ -15,25 +15,25 @@
 #include "./inc/d_list.hpp"
 #include "./inc/stack_array.hpp"
 #include "./inc/stack_list.hpp"
+#include "./inc/queue_array.hpp"
 
 using namespace dsa;
 
 
 int main()
 {
+    std::cout << "Start \n"; 
 
-    StackList<int> st = StackList<int>(); 
-    st.push(1); 
-    st.push(2); 
-    st.push(3); 
-    st.push(4); 
-    st.push(5); 
-    std::cout  << "Top = " << st.stackTop() << std::endl; 
-    std::cout << st.peek(1) << std::endl; 
-    std::cout << st.peek(2) << std::endl; 
-    std::cout << st.peek(3) << std::endl; 
-    std::cout << st.peek(4) << std::endl; 
-    std::cout << st.peek(5) << std::endl; 
-
+    auto x = QueueArray<int, 5>(); 
+    x.enqueue(1); 
+    x.enqueue(2); 
+    x.enqueue(3); 
+    x.enqueue(4); 
+    x.enqueue(5); 
+    std::cout << "first = " << x.first() << std::endl; 
+    std::cout << "last = " << x.last() << std::endl; 
+    std::cout << "is empty = " << x.isEmpty() << std::endl; 
+    std::cout << "is full = " << x.isFull() << std::endl; 
+    std::cout << "Done\n"; 
     return 0 ; 
 }

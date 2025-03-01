@@ -97,6 +97,30 @@ namespace dsa{
         explicit InvalidStackPositionException(const char* msg); 
         const char *what() const noexcept override ;
     };
+    /**
+     * @brief QueueEmptyException
+     * 
+     */
+    class QueueEmptyException: public std::exception
+    {
+    private:
+        const char *msg;
+    public:
+        explicit QueueEmptyException(const char* msg); 
+        const char *what() const noexcept override ;
+    };
+    /**
+     * @brief QueueFullException
+     * 
+     */
+    class QueueFullException: public std::exception
+    {
+    private:
+        const char *msg;
+    public:
+        explicit QueueFullException(const char* msg); 
+        const char *what() const noexcept override ;
+    };
 }
 #endif // LIST_EMPTY_HPP
 

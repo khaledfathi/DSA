@@ -81,3 +81,23 @@ const char *InvalidStackPositionException::what() const noexcept
     return this->msg; 
 }
 /* ##################################### */
+
+QueueEmptyException::QueueEmptyException(const char *msg)
+{
+    this->msg = msg;
+}
+const char *QueueEmptyException::what() const noexcept
+{
+    return this->msg; 
+}
+/* ##################################### */
+
+QueueFullException::QueueFullException(const char *msg)
+{
+    this->msg = msg;
+}
+const char *QueueFullException::what() const noexcept
+{
+    return this->msg; 
+}
+/* ##################################### */
