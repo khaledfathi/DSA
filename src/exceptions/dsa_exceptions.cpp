@@ -2,7 +2,7 @@
  * File : dsa_exceptions.hpp
  * Namespace :
  * Created : Tue Jan 7 2025
- * Modified : Mon Feb 17 2025
+ * Modified : Sat Mar 01 2025
  * Author : Khaled Fathi
  * Email : dev@khaledfathi.com
  *
